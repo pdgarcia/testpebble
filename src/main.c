@@ -43,8 +43,13 @@ static void main_window_load(Window *window) {
   
   // Create time TextLayer
   s_time_layer = text_layer_create(GRect(5, 52, 139, 50));
-  text_layer_set_background_color(s_time_layer, GColorClear);
-  text_layer_set_text_color(s_time_layer, GColorBlack);
+  #ifdef PBL_COLOR
+    text_layer_set_background_color(s_time_layer, GColorClear);
+    text_layer_set_text_color(s_time_layer, GColorCyan);
+  #else
+    text_layer_set_background_color(s_time_layer, GColorClear);
+    text_layer_set_text_color(s_time_layer, GColorBlack);
+  #endif
   text_layer_set_text(s_time_layer, "00:00");
   
   //Create GFont
@@ -59,8 +64,13 @@ static void main_window_load(Window *window) {
   
   // Create temperature Layer
   s_weather_layer = text_layer_create(GRect(0, 130, 144, 25));
-  text_layer_set_background_color(s_weather_layer, GColorClear);
-  text_layer_set_text_color(s_weather_layer, GColorWhite);
+  #ifdef PBL_COLOR
+    text_layer_set_background_color(s_weather_layer, GColorClear);
+    text_layer_set_text_color(s_weather_layer, GColorRajah);
+  #else
+    text_layer_set_background_color(s_weather_layer, GColorClear);
+    text_layer_set_text_color(s_weather_layer, GColorWhite);
+  #endif
   text_layer_set_text_alignment(s_weather_layer, GTextAlignmentCenter);
   text_layer_set_text(s_weather_layer, "Loading...");
   
