@@ -4,13 +4,10 @@
 #define KEY_CONDITIONS 1
   
 static Window *s_main_window;
-static TextLayer *s_time_layer;
-static TextLayer *s_weather_layer;
-static TextLayer *s_time_layer, *s_date_layer;
+static TextLayer *s_time_layer, *s_date_layer, *s_weather_layer;
+static int s_battery_level;
 
-static GFont s_time_font;
-static GFont s_weather_font;
-static GFont s_time_font, s_date_font;
+static GFont s_time_font, s_date_font, s_weather_font;
 
 static BitmapLayer *s_background_layer;
 static GBitmap *s_background_bitmap;
@@ -43,6 +40,11 @@ static void update_time() {
 
 }
 
+static void battery_callback(BatteryChargeState state) {
+  // Record the new battery level
+  s_battery_level = state.charge_percent;
+}
+
 static void main_window_load(Window *window) {
   //Create GBitmap, then set to created BitmapLayer
   s_background_bitmap = gbitmap_create_with_resource(RESOURCE_ID_IMAGE_BACKGROUND);
@@ -52,11 +54,10 @@ static void main_window_load(Window *window) {
   
   // Create time TextLayer
   s_time_layer = text_layer_create(GRect(5, 52, 139, 50));
+  text_layer_set_background_color(s_time_layer, GColorClear);
   #ifdef PBL_COLOR
-    text_layer_set_background_color(s_time_layer, GColorClear);
     text_layer_set_text_color(s_time_layer, GColorCyan);
   #else
-    text_layer_set_background_color(s_time_layer, GColorClear);
     text_layer_set_text_color(s_time_layer, GColorBlack);
   #endif
   text_layer_set_text(s_time_layer, "00:00");
@@ -73,7 +74,11 @@ static void main_window_load(Window *window) {
   
   // Create date TextLayer
   s_date_layer = text_layer_create(GRect(0, 12, 144, 30));
-  text_layer_set_text_color(s_date_layer, GColorWhite);
+  #ifdef PBL_COLOR
+    text_layer_set_text_color(s_date_layer, GColorCyan);
+  #else
+    text_layer_set_text_color(s_date_layer, GColorWhite);
+  #endif
   text_layer_set_background_color(s_date_layer, GColorClear);
   text_layer_set_text_alignment(s_date_layer, GTextAlignmentCenter);
 
@@ -86,11 +91,10 @@ static void main_window_load(Window *window) {
   
   // Create temperature Layer
   s_weather_layer = text_layer_create(GRect(0, 130, 144, 25));
+  text_layer_set_background_color(s_weather_layer, GColorClear);
   #ifdef PBL_COLOR
-    text_layer_set_background_color(s_weather_layer, GColorClear);
     text_layer_set_text_color(s_weather_layer, GColorRajah);
   #else
-    text_layer_set_background_color(s_weather_layer, GColorClear);
     text_layer_set_text_color(s_weather_layer, GColorWhite);
   #endif
   text_layer_set_text_alignment(s_weather_layer, GTextAlignmentCenter);
@@ -121,7 +125,7 @@ static void main_window_unload(Window *window) {
   // Destroy weather elements
   text_layer_destroy(s_weather_layer);
   fonts_unload_custom_font(s_weather_font);
-  // 
+  // Destroy Date
   fonts_unload_custom_font(s_date_font);
   text_layer_destroy(s_date_layer);
 }
@@ -209,6 +213,9 @@ static void init() {
   app_message_register_inbox_dropped(inbox_dropped_callback);
   app_message_register_outbox_failed(outbox_failed_callback);
   app_message_register_outbox_sent(outbox_sent_callback);
+  
+  // Register for battery level updates
+  battery_state_service_subscribe(battery_callback);
   
   // Open AppMessage
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
