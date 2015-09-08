@@ -7,7 +7,7 @@
         "location"
     ],
     "companyName": "Pebble",
-    "longName": "Tutorial-3-3",
+    "longName": "My Watch Face",
     "projectType": "native",
     "resources": {
         "media": [
@@ -31,13 +31,11 @@
         ]
     },
     "sdkVersion": "3",
-    "shortName": "Tutorial-3-3",
+    "shortName": "MyWatchFace",
     "targetPlatforms": [
-        "aplite",
         "basalt"
     ],
-    "uuid": "1c5eb3ad-8b3c-49a2-bd7d-73ba323ab695",
-    "versionCode": 1,
+    "uuid": "a494b55c-62ff-4bed-91ad-5f27b6d30a9c",
     "versionLabel": "1.0",
     "watchapp": {
         "watchface": true
