@@ -56,11 +56,19 @@ static void battery_update_proc(Layer *layer, GContext *ctx) {
   int width = (int)(float)(((float)s_battery_level / 100.0F) * 114.0F);
 
   // Draw the background
-  graphics_context_set_fill_color(ctx, GColorBlack);
+  #ifdef PBL_COLOR
+    graphics_context_set_fill_color(ctx, GColorRed);
+  #else
+    graphics_context_set_fill_color(ctx, GColorBlack);
+  #endif
   graphics_fill_rect(ctx, bounds, 0, GCornerNone);
 
   // Draw the bar
-  graphics_context_set_fill_color(ctx, GColorWhite);
+  #ifdef PBL_COLOR
+    graphics_context_set_fill_color(ctx, GColorBlue);
+  #else
+    graphics_context_set_fill_color(ctx, GColorWhite);
+  #endif
   graphics_fill_rect(ctx, GRect(0, 0, width, bounds.size.h), 0, GCornerNone);
 }
 
@@ -243,6 +251,9 @@ static void init() {
 
   // Register for battery level updates
   battery_state_service_subscribe(battery_callback);
+  
+  // Ensure battery level is displayed from the start
+  battery_callback(battery_state_service_peek());
 
   // Open AppMessage
   app_message_open(app_message_inbox_size_maximum(), app_message_outbox_size_maximum());
