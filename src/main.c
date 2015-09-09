@@ -20,16 +20,16 @@ static void update_time() {
   struct tm *tick_time = localtime(&temp);
 
   // Create a long-lived buffer
-  static char buffer[] = "00:00";
+  static char buffer[] = "00:00 AM";
   static char date_buffer[16];
 
   // Write the current hours and minutes into the buffer
   if(clock_is_24h_style() == true) {
-    //Use 2h hour format
+    //Use 24h hour format
     strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
   } else {
     //Use 12 hour format
-    strftime(buffer, sizeof("00:00"), "%I:%M", tick_time);
+    strftime(buffer, sizeof("00:00 AM"), "%I:%M%p", tick_time);
   }
 
   // Display this time on the TextLayer
@@ -80,7 +80,7 @@ static void main_window_load(Window *window) {
   layer_add_child(window_get_root_layer(window), bitmap_layer_get_layer(s_background_layer));
 
   // Create time TextLayer
-  s_time_layer = text_layer_create(GRect(5, 52, 139, 50));
+  s_time_layer = text_layer_create(GRect(5, 62, 139, 50));
   text_layer_set_background_color(s_time_layer, GColorClear);
   #ifdef PBL_COLOR
     text_layer_set_text_color(s_time_layer, GColorBlue);
@@ -90,7 +90,7 @@ static void main_window_load(Window *window) {
   text_layer_set_text(s_time_layer, "00:00");
 
   //Create GFont
-  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SEGOE_MEDIA_CENTER_LIGHT_48));
+  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SEGOE_MEDIA_CENTER_LIGHT_34));
 
   //Apply to TextLayer
   text_layer_set_font(s_time_layer, s_time_font);

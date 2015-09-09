@@ -4,9 +4,10 @@
         "KEY_TEMPERATURE": 0
     },
     "capabilities": [
-        "location"
+        "location",
+        "configurable"
     ],
-    "companyName": "Pebble",
+    "companyName": "Pablo",
     "longName": "My Watch Face",
     "projectType": "native",
     "resources": {
@@ -17,8 +18,15 @@
                 "type": "font"
             },
             {
+                "compatibility": "2.7",
                 "file": "fonts/segoemcl.ttf",
                 "name": "FONT_SEGOE_MEDIA_CENTER_LIGHT_48",
+                "type": "font"
+            },
+            {
+                "compatibility": "2.7",
+                "file": "fonts/segoemcl.ttf",
+                "name": "FONT_SEGOE_MEDIA_CENTER_LIGHT_34",
                 "type": "font"
             },
             {
