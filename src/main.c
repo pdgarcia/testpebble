@@ -83,14 +83,14 @@ static void main_window_load(Window *window) {
   s_time_layer = text_layer_create(GRect(5, 52, 139, 50));
   text_layer_set_background_color(s_time_layer, GColorClear);
   #ifdef PBL_COLOR
-    text_layer_set_text_color(s_time_layer, GColorCyan);
+    text_layer_set_text_color(s_time_layer, GColorBlue);
   #else
     text_layer_set_text_color(s_time_layer, GColorBlack);
   #endif
   text_layer_set_text(s_time_layer, "00:00");
 
   //Create GFont
-  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_PERFECT_DOS_48));
+  s_time_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SEGOE_MEDIA_CENTER_LIGHT_48));
 
   //Apply to TextLayer
   text_layer_set_font(s_time_layer, s_time_font);
@@ -102,7 +102,7 @@ static void main_window_load(Window *window) {
   // Create date TextLayer
   s_date_layer = text_layer_create(GRect(0, 12, 144, 30));
   #ifdef PBL_COLOR
-    text_layer_set_text_color(s_date_layer, GColorCyan);
+    text_layer_set_text_color(s_date_layer, GColorOrange);
   #else
     text_layer_set_text_color(s_date_layer, GColorWhite);
   #endif
@@ -113,7 +113,7 @@ static void main_window_load(Window *window) {
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_date_layer));
 
   //
-  s_date_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_PERFECT_DOS_20));
+  s_date_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SEGOE_MEDIA_CENTER_LIGHT_20));
   text_layer_set_font(s_date_layer, s_date_font);
 
   // Create temperature Layer
@@ -128,7 +128,7 @@ static void main_window_load(Window *window) {
   text_layer_set_text(s_weather_layer, "Loading...");
 
   // Create second custom font, apply it and add to Window
-  s_weather_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_PERFECT_DOS_20));
+  s_weather_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_SEGOE_MEDIA_CENTER_LIGHT_20));
   text_layer_set_font(s_weather_layer, s_weather_font);
   layer_add_child(window_get_root_layer(window), text_layer_get_layer(s_weather_layer));
 

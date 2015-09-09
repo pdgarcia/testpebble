@@ -12,6 +12,16 @@
     "resources": {
         "media": [
             {
+                "file": "fonts/segoemcl.ttf",
+                "name": "FONT_SEGOE_MEDIA_CENTER_LIGHT_20",
+                "type": "font"
+            },
+            {
+                "file": "fonts/segoemcl.ttf",
+                "name": "FONT_SEGOE_MEDIA_CENTER_LIGHT_48",
+                "type": "font"
+            },
+            {
                 "file": "fonts/perfect-dos-vga.ttf",
                 "name": "FONT_PERFECT_DOS_48",
                 "type": "font"
